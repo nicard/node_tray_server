@@ -12,4 +12,12 @@ module.exports = app => {
         
     app.route('/user/exists/:userName')
         .get(wrapAsync(userAPI.checkUserNameTaken));
+
+    app.route('/products')
+    .get(wrapAsync(userAPI.produtos));
+
+    app.route('/products/variants')
+    .get(wrapAsync(userAPI.variants));
+
+    
 };

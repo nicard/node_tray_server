@@ -1,5 +1,3 @@
-const commentAPI = require('./comment')
-    , photoAPI = require('./photo')
-    , userAPI = require('./user');
+const userAPI = require('./user');
 
-module.exports = { commentAPI, photoAPI, userAPI };
+module.exports = { userAPI };

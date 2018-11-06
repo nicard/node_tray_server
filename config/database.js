@@ -80,10 +80,10 @@ db.serialize(() => {
     db.run(COMMENT_SCHEMA);     
     db.run(LIKE_SCHEMA);        
 
-    db.each("SELECT * FROM user", (err, user) => {
+    /*db.each("SELECT * FROM user", (err, user) => {
         console.log('Users');
         console.log(user);
-    });
+    });*/
 });
 
 process.on('SIGINT', () =>

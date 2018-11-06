@@ -4,42 +4,16 @@ const express = require('express')
     , path = require('path')
     , cors = require('cors')
     , db = require('./database')
-    , multer = require('multer')
-    , uuidv4 = require('uuid/v4')
-    , fs = require('fs')
-    , { commentRoutes, photoRoutes, userRoutes } = require('../app/routes');
+    , { userRoutes } = require('../app/routes');
 
-const uploadDir = './uploads';
-if (!fs.existsSync(uploadDir)){
-    fs.mkdirSync(uploadDir);
-    fs.mkdirSync(uploadDir + '/imgs');
-}
 
-const storage = multer.diskStorage({
-    destination(req, file, cb) {
-        cb(null, 'uploads/imgs')
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${uuidv4()}${path.extname(file.originalname)}`);
-    }
-});
-
-const upload = multer({
-    storage,
-    fileFilter(req, file, cb) {
-        console.log("Receiving image file")
-        cb(null, true)
-    }
-});
 
 app.set('secret', 'your secret phrase here');
-app.set('upload', upload);
 
 const corsOptions = {
     exposedHeaders: ['x-access-token']
 };
 
-app.use(express.static('uploads'));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
@@ -62,8 +36,6 @@ app.use((req, res, next) => {
 });
 
 userRoutes(app);
-photoRoutes(app);
-commentRoutes(app);
 
 
 app.use('*', (req, res) => {
